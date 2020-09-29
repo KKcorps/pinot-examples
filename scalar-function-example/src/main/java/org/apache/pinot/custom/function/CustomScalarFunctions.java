@@ -1,16 +1,14 @@
 package org.apache.pinot.custom.function;
 
+import com.github.davidmoten.geo.GeoHash;
 import org.apache.pinot.common.function.annotations.ScalarFunction;
 
 
 public class CustomScalarFunctions {
 
-  @ScalarFunction(name = "repeat_n")
-  public static String repeat(String input, Integer N, String seperator) {
-    String output = "";
-    for (int i = 0; i < N; i++) {
-      output = output + seperator + input;
-    }
-    return output.substring(seperator.length());
+  @ScalarFunction(name = "encode_geohash")
+  public static String latLngToGeo(Double latitude, Double longitude, Integer geoLength) {
+    return GeoHash.encodeHash(latitude, longitude, geoLength);
   }
+
 }
